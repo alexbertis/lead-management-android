@@ -1,7 +1,7 @@
 package com.community.jboss.leadmanagement.main;
 
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 
 public abstract class MainFragment extends Fragment {
     public abstract @StringRes

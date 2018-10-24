@@ -1,7 +1,7 @@
 package com.community.jboss.leadmanagement.data.models;
 
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Relation;
+import androidx.room.Embedded;
+import androidx.room.Relation;
 
 import com.community.jboss.leadmanagement.data.entities.Contact;
 import com.community.jboss.leadmanagement.data.entities.ContactNumber;

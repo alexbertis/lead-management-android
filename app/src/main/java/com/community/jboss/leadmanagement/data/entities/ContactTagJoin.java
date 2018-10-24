@@ -1,8 +1,8 @@
 package com.community.jboss.leadmanagement.data.entities;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.support.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.annotation.NonNull;
 
 @Entity(primaryKeys = {
         "contactId",

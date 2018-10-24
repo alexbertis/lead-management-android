@@ -7,8 +7,12 @@ buildscript {
         jcenter()
     }
     dependencies {
+<<<<<<< HEAD
+        classpath 'com.android.tools.build:gradle:3.2.1'
+=======
         classpath 'com.android.tools.build:gradle:3.1.3'
-        classpath 'com.google.gms:google-services:3.1.0'
+>>>>>>> 1b7b5e79e2945622bb1c6329a8673b4369eec655
+        classpath 'com.google.gms:google-services:4.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -30,6 +34,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    compileSdkVersion = 27
-    supportLibVersion = "27.0.2"
+    compileSdkVersion = 28
+    supportLibVersion = "28.0.0"
 }
