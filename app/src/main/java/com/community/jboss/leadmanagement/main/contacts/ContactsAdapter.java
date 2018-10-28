@@ -1,11 +1,14 @@
 package com.community.jboss.leadmanagement.main.contacts;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +19,11 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.graphics.Color;
 
-import static com.community.jboss.leadmanagement.SettingsActivity.PREF_DARK_THEME;
-
+import com.bumptech.glide.Glide;
 import com.community.jboss.leadmanagement.CustomDialogBox;
 import com.community.jboss.leadmanagement.PermissionManager;
 import com.community.jboss.leadmanagement.R;
@@ -30,12 +32,15 @@ import com.community.jboss.leadmanagement.data.daos.ContactNumberDao;
 import com.community.jboss.leadmanagement.data.entities.Contact;
 import com.community.jboss.leadmanagement.main.contacts.editcontact.EditContactActivity;
 import com.community.jboss.leadmanagement.utils.DbUtil;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.community.jboss.leadmanagement.SettingsActivity.PREF_DARK_THEME;
 
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> implements Filterable {
@@ -115,8 +120,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         void onContactDeleted(Contact contact);
     }
 
-    final class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+    final class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @BindView(R.id.contact_avatar)
+        CircularImageView avatar;
         @BindView(R.id.contact_name)
         TextView name;
         @BindView(R.id.contact_number)
@@ -148,10 +154,16 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             });
         }
 
+        private boolean photoExists = false;
         void bind(Contact contact) {
             mContact = contact;
 
             // TODO add contact avatar
+            byte[] mContactPhotoBytes = contact.getPhotoBytes();
+            if(mContactPhotoBytes != null){
+                photoExists = true;
+                Glide.with(mContext).load(BitmapFactory.decodeByteArray(mContactPhotoBytes,0, mContactPhotoBytes.length)).into(avatar);
+            }
             name.setText(contact.getName());
             number.setText(getNumber());
         }
@@ -178,7 +190,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             TextView txtClose;
             TextView popupName;
             TextView contactNum;
-            TextView mail;
+            TextView popupMail, popupQuery, popupAddress, popupCallNotes;
+            ImageView popupPicture;
             Button btnEdit;
             Button btnCall;
             Button btnMsg;
@@ -187,23 +200,46 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             detailDialog.setContentView(R.layout.popup_detail);
             txtClose = detailDialog.findViewById(R.id.txt_close);
             btnEdit = detailDialog.findViewById(R.id.btn_edit);
+            popupPicture = detailDialog.findViewById(R.id.popupPhoto);
             popupName = detailDialog.findViewById(R.id.popup_name);
             contactNum = detailDialog.findViewById(R.id.txt_num);
             btnCall = detailDialog.findViewById(R.id.btn_call);
             btnMsg = detailDialog.findViewById(R.id.btn_msg);
-            mail = detailDialog.findViewById(R.id.popupMail);
+            popupMail = detailDialog.findViewById(R.id.popupMail);
+            popupQuery = detailDialog.findViewById(R.id.popupQuery);
+            popupAddress = detailDialog.findViewById(R.id.popupAddress);
+            popupCallNotes = detailDialog.findViewById(R.id.popupCallNotes);
             layout = detailDialog.findViewById(R.id.popupLayout);
 
             if(mPref.getBoolean(PREF_DARK_THEME,false)){
                 layout.setBackgroundColor(Color.parseColor("#303030"));
                 popupName.setTextColor(Color.WHITE);
                 contactNum.setTextColor(Color.WHITE);
-                mail.setTextColor(Color.WHITE);
+                popupMail.setTextColor(Color.WHITE);
+                popupQuery.setTextColor(Color.WHITE);
+                popupAddress.setTextColor(Color.WHITE);
+                popupCallNotes.setTextColor(Color.WHITE);
                 txtClose.setBackground(mContext.getResources().getDrawable(R.drawable.ic_close_white));
             }
-
+            if(photoExists) popupPicture.setImageDrawable(avatar.getDrawable());
             popupName.setText(name.getText());
             contactNum.setText(number.getText());
+            final String email = mContact.getEmail(),
+                    query = mContact.getQuery(),
+                    address = mContact.getAddress(),
+                    callNotes = mContact.getCallNotes();
+            if (email == null || email.isEmpty()){
+                ((View)popupMail.getParent().getParent()).setVisibility(View.GONE);
+            }else popupMail.setText(email);
+            if (query == null || query.isEmpty()){
+                ((View)popupQuery.getParent().getParent()).setVisibility(View.GONE);
+            }else popupQuery.setText(query);
+            if (address == null || address.isEmpty()){
+                ((View)popupAddress.getParent().getParent()).setVisibility(View.GONE);
+            }else popupAddress.setText(address);
+            if (callNotes == null || callNotes.isEmpty()){
+                ((View)popupCallNotes.getParent().getParent()).setVisibility(View.GONE);
+            }else popupCallNotes.setText(callNotes);
 
             txtClose.setOnClickListener(view1 -> detailDialog.dismiss());
 
@@ -218,6 +254,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
 
 
             btnCall.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("MissingPermission")
                 @Override
                 public void onClick(View view) {
                     if(permManager.permissionStatus(Manifest.permission.CALL_PHONE)) {

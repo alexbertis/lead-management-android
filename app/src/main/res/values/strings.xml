@@ -19,6 +19,9 @@
     <string name="title_groups">Groups</string>
     <string name="name">Name</string>
     <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="call_notes">Call notes</string>
+    <string name="query">Query</string>
 
 
     <string name="title_add_contact">Add Contact</string>
