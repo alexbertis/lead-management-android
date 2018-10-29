@@ -134,6 +134,9 @@ public class MainActivity extends BaseActivity
         if (!permissionManager.permissionStatus(Manifest.permission.READ_PHONE_STATE)) {
             permissionManager.requestPermission(ID, Manifest.permission.READ_PHONE_STATE);
         }
+        if (!permissionManager.permissionStatus(Manifest.permission.READ_CALL_LOG)) {
+            permissionManager.requestPermission(ID, Manifest.permission.READ_CALL_LOG);
+        }
 
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
