@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -56,17 +57,15 @@ import timber.log.Timber;
 import static com.community.jboss.leadmanagement.SettingsActivity.PREF_DARK_THEME;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private final int ID = 512;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigationView;
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -78,10 +77,11 @@ public class MainActivity extends BaseActivity
     private PermissionManager permissionManager;
 
     public static boolean useDarkTheme;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
 
         if(useDarkTheme) {
@@ -90,18 +90,14 @@ public class MainActivity extends BaseActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        navigationView = findViewById(R.id.navigation);
+        navigationView.setOnNavigationItemSelectedListener(this);
 
         visibleBtn(useDarkTheme);
 
         mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
         mViewModel.getSelectedNavItem().observe(this, this::displayNavigationItem);
-
-        NavigationView navView = findViewById(R.id.nav_view);
-        View header =  navView.getHeaderView(0);
-
-        header.findViewById(R.id.sign_in_button).setOnClickListener(this);
-        header.findViewById(R.id.sign_out_button).setOnClickListener(this);
 
         boolean isFirebaseAlreadyIntialized=false;
         List<FirebaseApp> firebaseApps = FirebaseApp.getApps(this);
@@ -138,34 +134,9 @@ public class MainActivity extends BaseActivity
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Set initial selected item to Contacts
-        if (savedInstanceState == null) {
-            selectInitialNavigationItem();
-        }
-
         initFab();
     }
 
-    private void selectInitialNavigationItem() {
-        final @IdRes int initialItem = R.id.nav_contacts;
-        onNavigationItemSelected(navigationView.getMenu().findItem(initialItem));
-        navigationView.setCheckedItem(initialItem);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -207,15 +178,8 @@ public class MainActivity extends BaseActivity
             case R.id.nav_groups:
                 navigationItem = MainActivityViewModel.NavigationItem.GROUPS;
                 break;
-            case R.id.nav_settings:
-                navigationItem = MainActivityViewModel.NavigationItem.SETTINGS;
-                break;
             case R.id.toggle_theme:
-                darkTheme(true);
-                navigationItem = MainActivityViewModel.NavigationItem.CONTACTS;
-                break;
-            case R.id.light_theme:
-                darkTheme(false);
+                darkTheme(!preferences.getBoolean(PREF_DARK_THEME, false));
                 navigationItem = MainActivityViewModel.NavigationItem.CONTACTS;
                 break;
             default:
@@ -225,7 +189,6 @@ public class MainActivity extends BaseActivity
         }
         mViewModel.setSelectedNavItem(navigationItem);
 
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -264,7 +227,6 @@ public class MainActivity extends BaseActivity
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
     }
     // [END on_start_check_user]
 
@@ -283,7 +245,6 @@ public class MainActivity extends BaseActivity
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // [START_EXCLUDE]
-                updateUI(null);
                 // [END_EXCLUDE]
             }
         }
@@ -302,13 +263,11 @@ public class MainActivity extends BaseActivity
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT ).show();
-                            updateUI(null);
                         }
                         // [START_EXCLUDE]
                         hideProgressDialog();
@@ -332,51 +291,11 @@ public class MainActivity extends BaseActivity
                 new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
+
                     }
                 });
     }
 
-
-    private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
-        View header =  navigationView.getHeaderView(0);
-
-        TextView mDetailTextView = header.findViewById(R.id.nav_detail);
-        TextView mStatusTextView = header.findViewById(R.id.nav_status);
-        CircularImageView mProfileImageView = header.findViewById(R.id.nav_prof_pic);
-
-        if (user != null) {
-            Toast.makeText(getApplicationContext(), "Signed in", Toast.LENGTH_SHORT).show();
-
-            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getDisplayName()));
-            mProfileImageView.setVisibility(View.VISIBLE);
-            Glide.with(this).load(user.getPhotoUrl()).into(mProfileImageView);
-
-            header.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            header.findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
-        } else {
-            Toast.makeText(getApplicationContext(), "Signed out", Toast.LENGTH_SHORT).show();
-
-            mStatusTextView.setText(R.string.app_desc);
-            mDetailTextView.setText(R.string.app_name);
-            Glide.with(this).load("https://github.com/jboss-outreach/lead-management-android/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png?raw=true").into(mProfileImageView);
-
-            header.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            header.findViewById(R.id.sign_out_button).setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.sign_in_button) {
-            signIn();
-        } else if (i == R.id.sign_out_button) {
-            signOut();
-        }
-    }
 
 
     public void initFab() {
@@ -399,18 +318,14 @@ public class MainActivity extends BaseActivity
     }
 
     private void visibleBtn(boolean darkTheme){
-        NavigationView navigationView = findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
-        MenuItem darkBtn = menu.findItem(R.id.toggle_theme);
-        MenuItem lightBtn = menu.findItem(R.id.light_theme);
+        MenuItem toogleItem = menu.findItem(R.id.toggle_theme);
 
         if (darkTheme){
-            darkBtn.setVisible(false);
-            lightBtn.setVisible(true);
+            toogleItem.setIcon(R.drawable.ic_wb_sunny_black_24dp);
         }
         else {
-            darkBtn.setVisible(true);
-            lightBtn.setVisible(false);
+            toogleItem.setIcon(R.drawable.ic_night);
         }
     }
 
