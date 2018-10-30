@@ -3,6 +3,7 @@ package com.community.jboss.leadmanagement.main;
 
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -129,6 +131,16 @@ public class MainActivity extends BaseActivity
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
 
+        if(mAuth.getCurrentUser() == null){
+            new AlertDialog.Builder(this)
+                    .setMessage("You need to login into the app in order to use it. Do you want to sign in now?")
+                    .setTitle("Sign in required")
+                    .setPositiveButton(R.string.yes, (dialog, which) -> signIn())
+                    .setNegativeButton(R.string.no, (dialog, which) -> {
+                        enableOrDisableAll(false);
+                    }).setCancelable(false).show();
+        }
+
 
         permissionManager = new PermissionManager(this, this);
         if (!permissionManager.permissionStatus(Manifest.permission.READ_PHONE_STATE)) {
@@ -151,6 +163,14 @@ public class MainActivity extends BaseActivity
 
         initFab();
     }
+
+    private void enableOrDisableAll(boolean enable){
+        fab.setEnabled(enable);
+        toolbar.getMenu().setGroupEnabled(0, enable);
+        navigationView.getMenu().setGroupEnabled(R.id.bottom_pane, enable);
+        navigationView.getMenu().setGroupEnabled(R.id.top_pane, enable);
+    }
+
 
     private void selectInitialNavigationItem() {
         final @IdRes int initialItem = R.id.nav_contacts;
@@ -279,6 +299,7 @@ public class MainActivity extends BaseActivity
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -353,6 +374,7 @@ public class MainActivity extends BaseActivity
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getDisplayName()));
             mProfileImageView.setVisibility(View.VISIBLE);
             Glide.with(this).load(user.getPhotoUrl()).into(mProfileImageView);
+            enableOrDisableAll(true);
 
             header.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             header.findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
@@ -362,6 +384,7 @@ public class MainActivity extends BaseActivity
             mStatusTextView.setText(R.string.app_desc);
             mDetailTextView.setText(R.string.app_name);
             Glide.with(this).load("https://github.com/jboss-outreach/lead-management-android/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png?raw=true").into(mProfileImageView);
+            enableOrDisableAll(false);
 
             header.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             header.findViewById(R.id.sign_out_button).setVisibility(View.GONE);
