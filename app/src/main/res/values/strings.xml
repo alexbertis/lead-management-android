@@ -74,4 +74,13 @@
 
     <string name="phone_title_text">Phone Number</string>
 
+    <string name="preferences_name">com.community.jboss.leadmanagement.preferences</string>
+    <string name="was_run_before_key">com.community.jboss.leadmanagement.wasrunbefore</string>
+    <string name="slide_1_header">Welcome to Lead Management!</string>
+    <string name="slide_1_content">A better way to manage your leads</string>
+    <string name="slide_2_header">Everything in one place</string>
+    <string name="slide_2_content">Easily manage and safely store all your business contacts</string>
+    <string name="slide_3_header">Never forget again</string>
+    <string name="slide_3_content">Record conversations to always have a backup of your important business calls</string>
+
 </resources>

@@ -50,6 +50,7 @@
         <activity
             android:name=".main.contacts.importcontact.ImportContactActivity"
             android:parentActivityName=".main.MainActivity" />
-    </application>
 
+        <activity android:name=".InfoSliderActivity"></activity>
+    </application>
 </manifest>
