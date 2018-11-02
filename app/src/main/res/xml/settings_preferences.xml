@@ -13,8 +13,10 @@
         <SwitchPreference
             android:key="dark_theme"
             android:title="Toggle mode"
-            android:defaultValue="false"
-            />
+            android:defaultValue="false" />
+        <Preference android:title="Sign in"
+            android:key="sign_in"
+            android:summary="Enter your account using Google"/>
 
     </android.support.v7.preference.PreferenceCategory>
 

@@ -46,6 +46,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return true;
                 }
             });
+            Preference button = findPreference("sign_in");
+            if(((SettingsActivity)mActivity).isUserActive()){
+                button.setTitle("Sign out");
+                button.setSummary("Exit your Google account");
+            }
+            button.setOnPreferenceClickListener(preference -> {
+                //code for what you want it to do
+                ((SettingsActivity)mActivity).signInOrOut();
+                return true;
+            });
             mPreference.setSummary(currentServer);
             mPreference.setText(currentServer);
 
