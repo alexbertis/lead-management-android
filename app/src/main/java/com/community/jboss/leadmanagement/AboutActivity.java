@@ -26,7 +26,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.community.jboss.leadmanagement.SettingsActivity.PREF_DARK_THEME;
+import static com.community.jboss.leadmanagement.SettingsFragment.PREF_DARK_THEME;
 
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
