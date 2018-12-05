@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1060339244383",
+    "firebase_url": "https://lead-management-android.firebaseio.com",
+    "project_id": "lead-management-android",
+    "storage_bucket": "lead-management-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060339244383:android:9dd99eb89b0017e8",
+        "android_client_info": {
+          "package_name": "com.community.jboss.leadmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060339244383-pb7knln7af5t1kll34r6ti0rjs0acs5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS4vr4KtNkdcvblCG9GvYmZvma9FMXZNI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

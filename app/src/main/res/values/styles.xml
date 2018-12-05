@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -14,8 +15,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.TextStyle" parent="Theme.Design.Light.NoActionBar">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+    </style>
+
     <style name="AppTheme.Launch" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+
+    <style name="AppTheme.Sign" parent="AppTheme">
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -36,6 +46,8 @@
     <style name="AppTheme.BG" parent="AppTheme.Dark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
 </resources>

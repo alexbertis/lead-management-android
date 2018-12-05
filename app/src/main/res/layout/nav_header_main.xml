@@ -52,26 +52,25 @@
             android:text="@string/navigation_drawer_email" />
     </LinearLayout>
 
-        <com.google.android.gms.common.SignInButton
+        <ImageView
             android:id="@+id/sign_in_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:src="@drawable/ic_login"
             android:layout_gravity="bottom|right"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:visibility="visible" />
 
 
-        <Button
+        <ImageView
             android:id="@+id/sign_out_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:backgroundTint="@android:color/white"
-            android:drawableLeft="@drawable/sign_out"
+            android:src="@drawable/sign_out_white"
             android:layout_gravity="bottom|right"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text=" " />
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 </LinearLayout>
