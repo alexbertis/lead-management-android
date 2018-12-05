@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
 
 public class CallRecorderService extends Service {
 
