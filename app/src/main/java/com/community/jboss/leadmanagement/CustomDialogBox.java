@@ -14,11 +14,12 @@ import android.widget.TextView;
 
 import com.community.jboss.leadmanagement.data.entities.Contact;
 import com.community.jboss.leadmanagement.main.contacts.ContactsAdapter;
-import com.community.jboss.leadmanagement.utils.DbUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.community.jboss.leadmanagement.SettingsFragment.PREF_DARK_THEME;
 
 
 public class CustomDialogBox{
@@ -47,7 +48,7 @@ public class CustomDialogBox{
         this.adapter = adapter;
         this.dialog = dialog;
 
-        if(mPref.getBoolean(SettingsActivity.PREF_DARK_THEME,false)){
+        if(mPref.getBoolean(PREF_DARK_THEME,false)){
             layout.setBackgroundColor(Color.parseColor("#303030"));
             text.setTextColor(Color.WHITE);
             text.setBackgroundColor(Color.parseColor("#303030"));

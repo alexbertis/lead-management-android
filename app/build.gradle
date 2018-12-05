@@ -56,7 +56,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-
     // Icepick
     implementation 'frankiesardo:icepick:3.2.0'
     annotationProcessor 'frankiesardo:icepick-processor:3.2.0'
@@ -76,7 +75,6 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-
 
     // Info Slider
     implementation 'com.github.msayan:tutorial-view:v1.0.6'
