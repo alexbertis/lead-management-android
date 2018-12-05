@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/about_layout"
         android:layout_margin="@dimen/text_margin"
         android:orientation="vertical">
         <TextView
@@ -30,22 +31,43 @@
             android:textAllCaps="true"
             android:textStyle="bold"
             android:text="Social networks"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/twitter"
+                android:layout_weight="1"
+                android:padding="30dp"
+                android:src="@drawable/ic_twitter"
+                android:background="?selectableItemBackground"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/facebook"
+                android:layout_weight="1"
+                android:padding="30dp"
+                android:src="@drawable/ic_facebook"
+                android:background="?selectableItemBackground"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/youtube"
+                android:layout_weight="1"
+                android:padding="30dp"
+                android:src="@drawable/ic_youtube"
+                android:background="?selectableItemBackground"/>
+        </LinearLayout>
         <android.support.design.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_mail"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/text_margin"
             app:icon="@drawable/ic_email_24dp"
             android:text="@string/send_email"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:textAllCaps="false"
-            android:onClick="onClick"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
-        <android.support.design.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/twitter"
-            app:icon="@drawable/ic_social"
-            android:text="@string/see_us_on_twitter"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textAllCaps="false"
             android:onClick="onClick"
@@ -59,6 +81,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:id="@+id/compilation_info"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_margin"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:text="Contributors"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
