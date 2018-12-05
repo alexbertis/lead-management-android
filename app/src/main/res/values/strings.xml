@@ -94,5 +94,14 @@
     <string name="add_widget">Add widget</string>
     <string name="add_contact">Add contact</string>
     <string name="not_signed">Please, sign in first...</string>
+    <string name="menu_about">About</string>
+    <string name="dialog_about">About the app</string>
+    <string name="about_message">JBoss Community is a community of open source projects. The community hosts a large number of projects that are written in various programming languages.
+        The primary language is Java. But there are also projects that are written in Ruby, PHP, Node and other languages.
+        \n\nProject categories range from better testing support over IDEs, application servers, application and performance monitoring to micro-services.
+    </string>
+    <string name="title_activity_about">About</string>
+    <string name="see_us_on_twitter">See us on Twitter</string>
+    <string name="send_email">Send us an email</string>
 
 </resources>

@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.community.jboss.leadmanagement.AboutActivity;
 import com.community.jboss.leadmanagement.BaseActivity;
 import com.community.jboss.leadmanagement.PermissionManager;
 import com.community.jboss.leadmanagement.R;
@@ -76,6 +78,7 @@ public class MainActivity extends BaseActivity
     private PermissionManager permissionManager;
 
     public static boolean useDarkTheme;
+    public static final String KEY_DARK = "dark_theme";
 
     // public EditText crash_the_fabric;
 
@@ -166,8 +169,14 @@ public class MainActivity extends BaseActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.action_about) {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            intent.putExtra(KEY_DARK, useDarkTheme);
+            startActivity(intent);
+            return true;
+        }
         // Disable this action if user is not signed in...
-        if(mAuth.getCurrentUser() == null){
+        else if(mAuth.getCurrentUser() == null){
             Toast.makeText(this, R.string.not_signed, Toast.LENGTH_SHORT).show();
             return false;
         }

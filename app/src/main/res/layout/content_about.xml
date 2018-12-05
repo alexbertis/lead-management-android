@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AboutActivity"
+    tools:showIn="@layout/activity_about">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_about"
+            style="@style/Base.TextAppearance.AppCompat.Title"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:text="@string/about_message" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_margin"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:text="Social networks"/>
+        <android.support.design.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_mail"
+            app:icon="@drawable/ic_email_24dp"
+            android:text="@string/send_email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textAllCaps="false"
+            android:onClick="onClick"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+        <android.support.design.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/twitter"
+            app:icon="@drawable/ic_social"
+            android:text="@string/see_us_on_twitter"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textAllCaps="false"
+            android:onClick="onClick"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_logo_jboss"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:id="@+id/compilation_info"/>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

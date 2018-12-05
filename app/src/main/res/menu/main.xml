@@ -16,8 +16,13 @@
     <item
         android:id="@+id/action_import"
         android:title="@string/import_contacts"
-        android:orderInCategory="99"
+        android:orderInCategory="98"
         android:visible="false"/>
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/menu_about"
+        android:orderInCategory="99"
+        android:visible="true"/>
 
 </menu>
 
