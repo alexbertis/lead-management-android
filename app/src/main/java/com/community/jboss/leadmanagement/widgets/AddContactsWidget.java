@@ -20,7 +20,7 @@ public class AddContactsWidget extends AppWidgetProvider {
 
             Intent intent = new Intent(context, EditContactActivity.class);
 
-            views.setOnClickPendingIntent(R.id.widget_layout, PendingIntent.getActivity(context, 0, intent, 0));
+            views.setOnClickPendingIntent(R.id.widget_layout, getPendingIntent(context));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
