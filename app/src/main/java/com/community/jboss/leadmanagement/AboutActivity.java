@@ -21,7 +21,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,21 +72,15 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                             username.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                             username.setText(obj.getString("login"));
                             username.setPadding(10,10,10,10);
-                            CircularImageView civ = new CircularImageView(AboutActivity.this);
-                            civ.setLayoutParams(new LinearLayout.LayoutParams(24, 24));
-                            Glide.with(AboutActivity.this).load(obj.getString("avatar_url")).into(civ);
-                            linearLayout.addView(civ);
                             linearLayout.addView(username);
                             linearLayout.setClickable(true);
                             linearLayout.setFocusable(true);
                             linearLayout.setOnClickListener(v -> {
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                try {
-                                    intent.setData(Uri.parse(obj.getString("html_url")));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                startActivity(intent);
+                                ContributorFragment contributorFragment = new ContributorFragment();
+                                Bundle b = new Bundle();
+                                b.putString("jsonData", obj.toString());
+                                contributorFragment.setArguments(b);
+                                contributorFragment.show(getSupportFragmentManager(), null);
                             });
                             rootLayout.addView(linearLayout);
                         }
