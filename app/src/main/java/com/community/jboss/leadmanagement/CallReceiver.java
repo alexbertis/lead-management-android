@@ -13,7 +13,6 @@ import android.support.v4.app.NotificationCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import com.community.jboss.leadmanagement.main.MainActivity;
 import com.community.jboss.leadmanagement.main.contacts.editcontact.EditContactActivity;
 
 public class CallReceiver extends BroadcastReceiver {

@@ -1,8 +1,14 @@
 <android.support.v7.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference android:title="Sign in"
+        android:key="signInButton"
+        android:enabled="false"
+        android:summary="Sign in to continue"/>
+
     <android.support.v7.preference.PreferenceCategory
         android:title="Lead management settings">
+
         <android.support.v7.preference.EditTextPreference
             android:key="server_location"
             android:title="Server Location"
@@ -15,17 +21,12 @@
             android:title="Toggle mode"
             android:defaultValue="false"
             />
-
     </android.support.v7.preference.PreferenceCategory>
 
-    <android.support.v7.preference.PreferenceCategory
-        android:title="Your account">
-
-        <android.support.v7.preference.Preference
-            android:key="sign_out"
-            android:title="Sign out"
-            />
-
-    </android.support.v7.preference.PreferenceCategory>
-
+    <android.support.v7.preference.Preference
+        android:key="sign_out"
+        android:title="Sign out"
+        android:enabled="false"
+        android:summary="Sign out from your account"
+        />
 </android.support.v7.preference.PreferenceScreen>

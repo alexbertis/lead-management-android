@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lead Management</string>
+    <string name="app_name">Lead Management</string>e
     <string name="app_desc">Business | Leads | Sales</string>
     <string name="title_activity_home">MainActivity</string>
 
@@ -85,6 +85,7 @@
     <string name="slide_2_content">Easily manage and safely store all your business contacts</string>
     <string name="slide_3_header">Never forget again</string>
     <string name="slide_3_content">Record conversations to always have a backup of your important business calls</string>
+    <string name="profile">Profile</string>
     <string name="password">Password</string>
     <string name="sign_in_via_google">SIgn in via google</string>
     <string name="sign_in_via_phone">Sign in via phone</string>
@@ -93,6 +94,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="add_contact">Add contact</string>
-    <string name="not_signed">Please, sign in first...</string>
+    <string name="not_signed">Please, sign in first…</string>
 
 </resources>
