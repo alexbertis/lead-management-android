@@ -82,11 +82,6 @@ public class EditContactActivity extends AppCompatActivity {
         setContentView(R.layout.create_contact);
 
         ButterKnife.bind(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locationField.setHint(Html.fromHtml(getString(R.string.location)+" <small>(optional)</small>", Html.FROM_HTML_MODE_LEGACY));
-        }
-
         if(useDarkTheme) {
             setDrawableLeft(locationField, R.drawable.ic_location_white);
             setDrawableLeft(emailField, R.drawable.ic_email_white);

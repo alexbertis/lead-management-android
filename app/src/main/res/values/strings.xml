@@ -73,7 +73,7 @@
     <string name="google_title_text">Google Sign In</string>
 
     <string name="phone_title_text">Phone Number</string>
-    <string name="location">Location</string>
+    <string name="location">Location(Optional)</string>
     <string name="query">Query</string>
     <string name="notes">Notes</string>
 
