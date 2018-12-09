@@ -96,4 +96,7 @@
     <string name="add_contact">Add contact</string>
     <string name="not_signed">Please, sign in first…</string>
 
+    <string name="shortcut_short">Edit contact</string>
+    <string name="shortcut_long">Add or edit a contact</string>
+    <string name="shortcut_disabled">The edit contact shortcut is disabled</string>
 </resources>
