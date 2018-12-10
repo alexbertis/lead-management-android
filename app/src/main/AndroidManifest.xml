@@ -34,8 +34,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="ff0c79be3b8f62398d27110bb3cbbe20c9706673"
-            />
+            android:value="ff0c79be3b8f62398d27110bb3cbbe20c9706673" />
 
         <activity
             android:name=".main.MainActivity"
@@ -62,7 +61,8 @@
             android:name=".main.contacts.importcontact.ImportContactActivity"
             android:parentActivityName=".main.MainActivity" />
         <activity android:name=".InfoSliderActivity" />
-        <activity android:name=".SignActivity"
+        <activity
+            android:name=".SignActivity"
             android:parentActivityName=".main.MainActivity"
             android:theme="@style/AppTheme.Sign" />
 
@@ -75,18 +75,23 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/add_contacts_widget_info" />
         </receiver>
-
         <receiver
-            android:label="@string/app_name"
-            android:name=".widgets.RecentContactsProvider">
+            android:name=".widgets.RecentContactsProvider"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/recent_contacts_widget_info" />
         </receiver>
-        <service android:name=".widgets.RecentContactsService"
+
+        <service
+            android:name=".widgets.RecentContactsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <activity android:name=".CallRecordActivity"></activity>
     </application>
+
 </manifest>

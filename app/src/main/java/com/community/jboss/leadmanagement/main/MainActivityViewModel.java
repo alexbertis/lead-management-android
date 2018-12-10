@@ -19,6 +19,7 @@ public class MainActivityViewModel extends ViewModel {
     enum NavigationItem {
         CONTACTS,
         GROUPS,
+        RECORDEDCALLS,
         SETTINGS
     }
 }

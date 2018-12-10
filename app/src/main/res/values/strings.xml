@@ -95,5 +95,5 @@
     <string name="add_widget">Add widget</string>
     <string name="add_contact">Add contact</string>
     <string name="not_signed">Please, sign in first…</string>
-
+    <string name="title_callrecordings">Recorded Calls</string>
 </resources>

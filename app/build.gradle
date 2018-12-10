@@ -71,6 +71,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.7'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.android.gms:play-services-drive:16.0.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
@@ -78,6 +79,8 @@ dependencies {
 
     // Info Slider
     implementation 'com.github.msayan:tutorial-view:v1.0.6'
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 }
 //apply plugin: 'com.google.gms.google-services'
