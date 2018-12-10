@@ -8,8 +8,10 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -28,23 +30,29 @@ public class CallReceiver extends BroadcastReceiver {
 
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Service.TELEPHONY_SERVICE);
 
-        if(tm == null) return;
+        if (tm == null) return;
 
-        tm.listen(new PhoneStateListener(){
+        tm.listen(new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
                 super.onCallStateChanged(state, incomingNumber);
-                switch(state){
+                switch (state) {
                     case TelephonyManager.CALL_STATE_IDLE:
                         hideNotification();
                         break;
                     case TelephonyManager.CALL_STATE_OFFHOOK:
                         showNotification(incomingNumber);
+                        if (!"".equals(incomingNumber)) {
+                            SharedPreferences callpreference = PreferenceManager.getDefaultSharedPreferences(context);
+                            SharedPreferences.Editor editor = callpreference.edit();
+                            editor.putString("number", incomingNumber);
+                            editor.commit();
+                        }
                         break;
                 }
-                System.out.println("incomingNumber : "+incomingNumber);
+                System.out.println("incomingNumber : " + incomingNumber);
             }
-        },PhoneStateListener.LISTEN_CALL_STATE);
+        }, PhoneStateListener.LISTEN_CALL_STATE);
 
     }
 

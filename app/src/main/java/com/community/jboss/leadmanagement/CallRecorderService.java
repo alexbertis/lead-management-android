@@ -3,14 +3,21 @@ package com.community.jboss.leadmanagement;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.os.Binder;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.community.jboss.leadmanagement.utils.CallRecordsManager;
+
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class CallRecorderService extends Service {
 
@@ -38,7 +45,8 @@ public class CallRecorderService extends Service {
         }
 
         recorder = new MediaRecorder();
-        recorder.setOutputFile(getFilename());
+        String outputfilepath = getFilename();
+        recorder.setOutputFile(outputfilepath);
 
         try {
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -54,7 +62,12 @@ public class CallRecorderService extends Service {
                 Toast.makeText(this, "Unknown error occurred, please try again later...", Toast.LENGTH_SHORT).show();
             }
         }
-
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String number = sharedPreferences.getString("number", "UNKNOWN-NUMBER");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String strDate = df.format(Calendar.getInstance().getTime());
+        new CallRecordsManager().addCall(outputfilepath, number, strDate);
         return super.onStartCommand(intent, flags, startId);
     }
 

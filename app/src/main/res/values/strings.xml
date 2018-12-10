@@ -99,4 +99,6 @@
     <string name="shortcut_short">Edit contact</string>
     <string name="shortcut_long">Add or edit a contact</string>
     <string name="shortcut_disabled">The edit contact shortcut is disabled</string>
+  
+    <string name="title_callrecordings">Recorded Calls</string>
 </resources>

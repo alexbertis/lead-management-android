@@ -17,5 +17,9 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/action_settings"/>
+        <item
+            android:id="@+id/nav_callrecordings"
+            android:icon="@drawable/ic_record"
+            android:title="@string/title_callrecordings" />
     </group>
 </menu>

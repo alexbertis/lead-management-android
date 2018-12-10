@@ -23,6 +23,7 @@ import com.community.jboss.leadmanagement.BaseActivity;
 import com.community.jboss.leadmanagement.PermissionManager;
 import com.community.jboss.leadmanagement.R;
 import com.community.jboss.leadmanagement.SettingsFragment;
+import com.community.jboss.leadmanagement.main.callrecord.CallRecordFragment;
 import com.community.jboss.leadmanagement.main.contacts.ContactsFragment;
 import com.community.jboss.leadmanagement.main.contacts.editcontact.EditContactActivity;
 import com.community.jboss.leadmanagement.main.contacts.importcontact.ImportContactActivity;
@@ -161,6 +162,11 @@ public class MainActivity extends BaseActivity
             case R.id.nav_groups:
                 navigationItem = MainActivityViewModel.NavigationItem.GROUPS;
                 break;
+            case R.id.nav_callrecordings:
+                fab.animate().cancel();
+                fab.animate().scaleX(0f).scaleY(0f).alpha(0f).setDuration(200);
+                navigationItem = MainActivityViewModel.NavigationItem.RECORDEDCALLS;
+                break;
             case R.id.nav_settings:
                 fab.animate().cancel();
                 fab.animate().scaleX(0f).scaleY(0f).alpha(0f).setDuration(200);
@@ -185,6 +191,9 @@ public class MainActivity extends BaseActivity
                 break;
             case GROUPS:
                 newFragment = new GroupsFragment();
+                break;
+            case RECORDEDCALLS:
+                newFragment= new CallRecordFragment();
                 break;
             case SETTINGS:
                 SettingsFragment fragment = new SettingsFragment();

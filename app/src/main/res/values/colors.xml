@@ -7,4 +7,5 @@
     <color name="darkColorPrimary">#04bcf4</color>
     <color name="darkColorPrimaryDark">#153f87</color>
     <color name="darkColorAccent">#FF4081</color>
+    <color name="darkcardcolour">#212121</color>
 </resources>
