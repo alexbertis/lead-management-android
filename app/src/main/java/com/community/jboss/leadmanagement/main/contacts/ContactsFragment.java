@@ -1,6 +1,7 @@
 package com.community.jboss.leadmanagement.main.contacts;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -82,6 +84,12 @@ public class ContactsFragment extends MainFragment implements ContactsAdapter.Ad
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 if(item==searchMenuItem){
+                    Context context = getContext();
+                    if(context != null){
+                        InputMethodManager manager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        manager.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+                        item.getActionView().requestFocus();
+                    }
                     mAdapter.getFilter().filter(searchView.getQuery());
                     if( mAdapter.getDataSize() == 0){
                         textView.setVisibility(View.VISIBLE);
@@ -95,6 +103,13 @@ public class ContactsFragment extends MainFragment implements ContactsAdapter.Ad
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 if(item==searchMenuItem){
+                    Context context = getContext();
+                    if(context != null){
+                        InputMethodManager manager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        manager.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+                        searchView.setQuery("",false);
+                        searchView.clearFocus();
+                    }
                     mAdapter.getFilter().filter("");
                     textView.setVisibility(View.GONE);
                 }
